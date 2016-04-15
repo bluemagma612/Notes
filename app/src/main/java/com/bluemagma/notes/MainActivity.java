@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //check to see if db connection exists
+        NotesDBHelper.getInstance(this).getReadableDatabase();
+        Log.i("notes", "attempting to create db");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -55,11 +61,12 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.addItem(item);
                 mEditText.setText("");
                 mLayoutManager.scrollToPosition(0);
+                NoteDAO dao = new NoteDAO(MainActivity.this);
+                dao.save(item);
             }
         });
 
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
     }
 
     @Override
