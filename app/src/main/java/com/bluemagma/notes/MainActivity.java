@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //set the background color of a note
-        setColor();
+
 
         //display recycler view
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -94,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
 
         //get database entries
         NotesDBHelper.getInstance(this).getReadableDatabase();
+
+        //set the background color of a note
+        setColor();
     }
 
     @Override
@@ -165,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setColor() {
-            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+        if (prefs.getString("NOTE_COLOR", "W") != null) {
             String color = prefs.getString("NOTE_COLOR", "W");
             if (color.toUpperCase().contains("G")) {
                 mRecyclerView.setBackgroundColor(Color.GREEN);
@@ -174,6 +177,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 mRecyclerView.setBackgroundColor(Color.WHITE);
             }
-
+        }
     }
 }
