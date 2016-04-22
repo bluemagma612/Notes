@@ -13,6 +13,7 @@ public class NotesDBContract {
     //inner class that defines the note table
     public static abstract class Note implements BaseColumns {
         public static final String TABLE_NAME = "note";
+        public static final String COLUMN_NAME_ID = "rowid";
         public static final String COLUMN_NAME_NOTE_TEXT = "note_text";
         public static final String COLUMN_NAME_STATUS = "status";
         public static final String COLUMN_NAME_NOTE_DATE = "note_date";
